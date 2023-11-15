@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/back_button.css') }}">
+{% endblock %}
+
+{% block body %}
+<a href="/run_tests"><div class="back_button">Back to tests page</div></a>
+<a href="/"><div class="back_button">Back to start page</div></a>
+{% endblock %}

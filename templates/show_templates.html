@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/start_page.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/back_button.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for template in templates %}
+        <p class="template_info">{{ template }}</p>
+    {% endfor %}
+<a href="/"><div class="back_button">Back to start page</div></a>
+{% endblock %}

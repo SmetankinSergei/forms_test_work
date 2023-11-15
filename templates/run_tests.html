@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/back_button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/run_tests.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="test_items">
+    {% for test in tests %}
+        <div class="buttons">
+            <div class="test_item">
+                <label class="test_label">Test #{{ test['number'] }}</label>
+                <a class="show_button" href="/show_test_data/{{ test['number'] }}"><div>Show test data</div></a>
+                <form action="http://localhost:5000/get_form" method = "POST">
+                    <input name="text" value="{{ test }}">
+                    <button class="run_button" type="submit" >Run test</button>
+                </form>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<a href="/"><div class="back_button">Back to start page</div></a>
+{% endblock %}

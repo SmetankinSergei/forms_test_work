@@ -16,6 +16,7 @@ def get_templates_views():
 
 
 def create_response(data):
+    """Возвращает результат работы программы для отображения на странице получения названия/формы"""
     data = prepare_data_to_check(data)
     template = check_keys(data)
     if template and check_types(template, data):
@@ -25,6 +26,7 @@ def create_response(data):
 
 
 def check_types(template, data):
+    """Проверяет правильность типов данных по ключу"""
     check_list = []
     template = json.loads(template.main_form)
     for template_key, template_type in template.items():
@@ -34,6 +36,7 @@ def check_types(template, data):
 
 
 def prepare_data_to_check(data):
+    """Подготавливает данные к проверке"""
     data = str(data['text'])
     while "'" in data:
         data = data.replace("'", '"')
@@ -44,6 +47,7 @@ def prepare_data_to_check(data):
 
 
 def create_bad_response(data):
+    """Возвращает форму, если такой нет в базе данных форм"""
     bad_response = {}
     for data_key in data.keys():
         for template_type in TEMPLATE_TYPES:

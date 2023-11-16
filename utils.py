@@ -1,33 +1,36 @@
 import json
 
 import dao
-from checks import check_keys, check_date, check_phone, check_mail, check_description
+from checks import check_keys
+from constants import TYPES_CHECKS, TEMPLATE_TYPES
 
 
 def get_templates_views():
     templates = dao.get_all_templates()
     views = []
     for template in templates:
-        template_body = template.main_form.strip('{}').split(', ')
-        view = {'template_name': template.form_name,
-                'template_body': template_body}
+        view = {'template_name': template.form_name}
+        view.update(json.loads(template.main_form))
         views.append(view)
     return views
 
 
 def create_response(data):
     data = prepare_data_to_check(data)
-    template_name = check_keys(data)
-    check_list = []
-    if template_name:
-        check_list.append(check_date(data))
-        check_list.append(check_phone(data))
-        check_list.append(check_mail(data))
-        check_list.append(check_description(data))
-        if all(check_list):
-            return template_name
+    template = check_keys(data)
+    if template and check_types(template, data):
+        return template.form_name
     else:
-        create_bad_response(data)
+        return create_bad_response(data)
+
+
+def check_types(template, data):
+    check_list = []
+    template = json.loads(template.main_form)
+    for template_key, template_type in template.items():
+        check_list.append(TYPES_CHECKS[template_type](data[template_key]))
+    if check_list:
+        return all(check_list)
 
 
 def prepare_data_to_check(data):
@@ -41,4 +44,10 @@ def prepare_data_to_check(data):
 
 
 def create_bad_response(data):
-    pass
+    bad_response = {}
+    for data_key in data.keys():
+        for template_type in TEMPLATE_TYPES:
+            if TYPES_CHECKS[template_type](data[data_key]):
+                bad_response[data_key] = template_type
+                break
+    return bad_response

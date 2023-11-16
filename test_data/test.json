@@ -1,29 +1,27 @@
 [
  {
   "number": 1,
-  "data": "order_date=10.10.2023&user_phone=+7 999 999 99 99&user_email=vasya@mail.ru&order_description=vasya made an order!"
+  "data": "order_date=10.10.2023&user_phone=+7 999 999 99 99&user_email=vasya@mail.ru&order_description=vasya made an order!",
+  "expected value": "order_form"
  },
  {
   "number": 2,
-  "data": "order_date=12.12.2023&user_phone=+7 999 999 00 00&user_email=petya@mail.ru&order_description=petya made an order!"
+  "data": "order_date=2023-12-12&user_phone=+7 999 999 00 00&user_email=petya@mail.ru&order_description=petya made an order!",
+  "expected value": "order_form"
  },
  {
   "number": 3,
-  "data": {
-   "event_date": "10.10.2023",
-   "manager_phone": "+7 999 999 99 99",
-   "manager_email": "vasya@mail.ru",
-   "event_description": "dancing party!"
-  }
+  "data": "event_date=10.10.2023&manager_phone=+7 999 999 99 99&manager_email=vasya@mail.ru&event_description=dancing party!",
+  "expected value": "event_form"
  },
  {
   "number": 4,
-  "data": {
-   "event_date": "10.10.2023",
-   "manager_phone": "+7 999 999 99 99",
-   "manager_email": "vasya@mail.ru",
-   "event_description": "dancing party!",
-   "guests_amount": "100"
-  }
+  "data": "event_date=10.10.2023&manager_phone=+7 999 999 99 99&guests_amount=100",
+  "expected value": "unknown_form"
+ },
+ {
+  "number": 5,
+  "data": "event_date=10.10.2023&manager_phone=+7 999 999 99 99&place=embankment&time=22:00&guests_amount=100",
+  "expected value": "unknown_form"
  }
 ]

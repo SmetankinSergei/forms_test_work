@@ -3,11 +3,14 @@
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/start_page.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/back_button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show_test_data.css') }}">
 {% endblock %}
 
 {% block body %}
+    <div class="item_info">
     {% for template in templates %}
-        <p class="template_info">{{ template }}</p>
+        <p class="template_info">{{ template }}</p><br>
     {% endfor %}
+    </div>
 <a href="/"><div class="back_button">Back to start page</div></a>
 {% endblock %}
